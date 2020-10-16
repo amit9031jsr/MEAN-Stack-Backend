@@ -9,9 +9,26 @@ router.get('/', (req, res) => {
             res.send(docs);
         }
         else {
-            console.log('Error in Retrieving Employees:' + JSON.stringify(err, undefined, 2));
+            console.log('Error in Retrieving Employees: ' + JSON.stringify(err, undefined, 2));
         }
     });
-})
+});
+
+router.post('/', (req, res) => {
+    var emp = new Employee({
+        name: req.body.name,
+        position: req.body.position,
+        office: req.body.office,
+        salary: req.body.salary
+    });
+    emp.save((err, docs) => {
+        if(!err) {
+            res.send(docs);
+        }
+        else {
+            console.log('Error in Employee Save: ' + JSON.stringify(err, undefined, 2));
+        }
+    });
+});
 
 module.exports = router;
